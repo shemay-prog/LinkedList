@@ -1,0 +1,152 @@
+//STORE STUDENT INFORMATION - array 
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+struct Student {
+	//address
+	Student* next = NULL;
+	Student* prev = NULL;
+	//informations
+	string name, sex, course, year, standing;
+	int age = 0, id = 0;
+};
+
+void MainMenu(int& choice);
+Student* AddNewStudent();
+
+int main() { //create data
+	int choice, studentCounter = 0;
+	Student* head = NULL, * tail = NULL, * temp = NULL;
+
+	do {
+		MainMenu(choice);
+
+		switch (choice) {
+		case 1:
+			//A1
+			temp = AddNewStudent(); // 
+			if (studentCounter) {
+				//true: meron nang karga ang linked list
+
+				//b2
+				temp->prev = tail;
+				temp->next = NULL;
+
+				//b3
+				tail->next = temp;
+
+				//b4
+				tail = temp;
+			}
+			else {
+				//false: wala pang karga
+				//a2
+				head = temp; // create ng new information sa may free or heap storage
+
+				//a3
+				temp->prev = NULL; // to know if first information also called as node
+				temp->next = NULL;
+
+				//a4
+				tail = head;
+			}
+
+			//A5
+			studentCounter++;
+			break;
+		case 2:
+			cout << "Read\n";
+			temp = head;
+
+			if (temp) {
+
+				do {
+					cout << temp->id << " - " << temp->name << " " << temp->age << temp->course << " " << temp->course << " " << temp->year;
+
+					if (!temp->next) {
+						break;
+					}
+
+					temp = temp->next;
+				} while (true);
+			}
+			break;
+		case 3:
+			cout << "Update\n";
+			break;
+		case 4:
+			cout << "Delete\n";
+			break;
+
+		default:
+			break;
+		}
+	} while (true);
+
+}
+
+void MainMenu(int& choice) {
+	cout
+		<< "1. Add Student\n"
+		<< "2. Update Student\n"
+		<< "3. Check Student List\n"
+		<< "4. Delete Student\n";
+
+	cin >> choice;
+
+	system("cls");
+}
+
+Student* AddNewStudent() {
+	Student* studentInformation;
+	studentInformation = new Student;
+
+	cout
+		<< "--- Student Information Form ---\n"
+		<< "Name: ";
+	cin >> studentInformation->name;
+
+	cout << "\nSex: ";
+	cin >> studentInformation->sex;
+
+	cout << "\nCourse: ";
+	cin >> studentInformation->course;
+
+	cout << "\nYear: ";
+	cin >> studentInformation->year;
+
+	cout << "\nStanding: ";
+	cin >> studentInformation->standing;
+
+	cout << "\nAge: ";
+	cin >> studentInformation->age;
+
+	cout << "\nID: ";
+	cin >> studentInformation->id;
+
+	return studentInformation ;
+}
+
+/*TOPIC
+pointers, adresses, linklist
+
+struct name
+//front - pressessor | back - successor
+A for address
+B for information
+
+CRUD - CREATE READ UPDATE DELETE
+
+C - create at the front - attending or prepending - middle= insert
+traversal - readd all
+find - reading specifically, find based on what data you are looking for
+
+update - 1.
+
+cue in linklist - FIFO - first in, first out
+
+runtime = heap
+*/
